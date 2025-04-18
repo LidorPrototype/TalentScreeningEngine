@@ -1,6 +1,7 @@
 import pdfplumber
 import docx
 
+
 def extract_text_from_file(uploaded_file):
     file_type = uploaded_file.name.split(".")[-1].lower()
     if file_type == "txt":

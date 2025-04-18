@@ -6,7 +6,10 @@ from constants import DEGREES, SKILL_POOL, TITLE_POOL
 
 fake = Faker()
 
-def generate_fake_candidate(n: int = 1) -> Union[CandidateProfile, List[CandidateProfile]]:
+
+def generate_fake_candidate(
+    n: int = 1,
+) -> Union[CandidateProfile, List[CandidateProfile]]:
     def create_one() -> CandidateProfile:
         ex_range = randint(2, 4)
         experiences = [fake.text(max_nb_chars=100) for _ in range(ex_range)]
@@ -19,7 +22,9 @@ def generate_fake_candidate(n: int = 1) -> Union[CandidateProfile, List[Candidat
             location=fake.city(),
             education=sample(DEGREES, k=randint(1, 2)),
             experiences=experiences,
-            skills=sample(SKILL_POOL, k=randint(min(6, len(SKILL_POOL) // 2), len(SKILL_POOL))),
+            skills=sample(
+                SKILL_POOL, k=randint(min(6, len(SKILL_POOL) // 2), len(SKILL_POOL))
+            ),
             total_years_experience=total_years_experience,
             job_titles=sample(TITLE_POOL, k=ex_range),
         )

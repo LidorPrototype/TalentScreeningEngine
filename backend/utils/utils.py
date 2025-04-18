@@ -1,5 +1,6 @@
 from backend.parsers.schema import CandidateProfile
 
+
 def build_weighted_candidate_blob(candidate: CandidateProfile) -> str:
     """
     Builds a weighted string for TF-IDF where skills, titles, and education

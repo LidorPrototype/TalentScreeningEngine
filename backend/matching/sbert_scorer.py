@@ -6,6 +6,7 @@ from backend.utils.utils import build_weighted_candidate_blob
 
 model = SentenceTransformer(SBERT_MODEL_NAME)
 
+
 class SBERTScorer(ScoringStrategy):
     def score(self, candidate: CandidateProfile, job_text: str) -> float:
         candidate_blob = build_weighted_candidate_blob(candidate)

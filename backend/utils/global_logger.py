@@ -5,6 +5,7 @@ from datetime import datetime
 from logging import LogRecord
 from typing import Any, Dict
 
+
 class JsonFormatter(logging.Formatter):
     def format(self, record: LogRecord) -> str:
         log_data: Dict[str, Any] = {
@@ -27,6 +28,7 @@ class JsonFormatter(logging.Formatter):
 
         return json.dumps(log_data)
 
+
 def _get_logger(name: str = "global") -> logging.Logger:
     logger = logging.getLogger(name)
 
@@ -43,5 +45,6 @@ def _get_logger(name: str = "global") -> logging.Logger:
         logger.propagate = False  # Prevent double logging
 
     return logger
+
 
 global_logger = _get_logger()

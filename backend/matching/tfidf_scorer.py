@@ -7,7 +7,8 @@ from backend.parsers.schema import CandidateProfile
 
 
 class TFIDFScorer(ScoringStrategy):
-    """ TF-IDF is a very naive approach, I recommend using one of the other options """
+    """TF-IDF is a very naive approach, I recommend using one of the other options"""
+
     def score(self, candidate: CandidateProfile, job_text: str) -> float:
         candidate_blob = build_weighted_candidate_blob(candidate)
         docs = [job_text, candidate_blob]

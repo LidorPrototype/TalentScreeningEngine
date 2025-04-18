@@ -9,6 +9,7 @@ from pydantic import BaseModel, Field
 
 from constants import SKILL_POOL, TITLE_POOL, DEGREES
 
+
 def ensure_spacy_model(model_name: str = "en_core_web_sm"):
     """Ensure spaCy model is installed and loaded."""
     if not is_package(model_name):
@@ -17,22 +18,27 @@ def ensure_spacy_model(model_name: str = "en_core_web_sm"):
 
     return spacy.load(model_name)
 
+
 nlp = ensure_spacy_model()
+
 
 class CandidateProfile(BaseModel):
     """
     Structured representation of a parsed resume for downstream use.
     """
+
     id: str = Field(default_factory=lambda: str(uuid.uuid4()))
-    name: str                                       # Full name of candidate
-    email: str                                      # Primary contact email
-    phone: Optional[str] = None                     # Optional phone number
-    location: Optional[str] = None                  # City or region
-    education: List[str]                            # List of degrees, institutions
-    experiences: List[str]                          # List of past job experiences (text)
-    skills: List[str]                               # Normalized list of skills
-    total_years_experience: Optional[float] = None  # Summed from all jobs, if calculable
-    job_titles: List[str]                           # Extracted past job titles
+    name: str  # Full name of candidate
+    email: str  # Primary contact email
+    phone: Optional[str] = None  # Optional phone number
+    location: Optional[str] = None  # City or region
+    education: List[str]  # List of degrees, institutions
+    experiences: List[str]  # List of past job experiences (text)
+    skills: List[str]  # Normalized list of skills
+    total_years_experience: Optional[float] = (
+        None  # Summed from all jobs, if calculable
+    )
+    job_titles: List[str]  # Extracted past job titles
 
     @staticmethod
     def from_text(text: str) -> "CandidateProfile":
@@ -43,7 +49,9 @@ class CandidateProfile(BaseModel):
         doc = nlp(text)
 
         # Extract email
-        email_match = re.search(r"\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}\b", text)
+        email_match = re.search(
+            r"\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}\b", text
+        )
         email = email_match.group(0) if email_match else "N/A"
 
         # Extract phone
@@ -54,12 +62,12 @@ class CandidateProfile(BaseModel):
         name = "N/A"
         matcher = Matcher(nlp.vocab)
         patterns = [
-            [{'POS': 'PROPN'}, {'POS': 'PROPN'}],
-            [{'POS': 'PROPN'}, {'POS': 'PROPN'}, {'POS': 'PROPN'}],
-            [{'POS': 'PROPN'}, {'POS': 'PROPN'}, {'POS': 'PROPN'}, {'POS': 'PROPN'}]
+            [{"POS": "PROPN"}, {"POS": "PROPN"}],
+            [{"POS": "PROPN"}, {"POS": "PROPN"}, {"POS": "PROPN"}],
+            [{"POS": "PROPN"}, {"POS": "PROPN"}, {"POS": "PROPN"}, {"POS": "PROPN"}],
         ]
         for pattern in patterns:
-            matcher.add('NAME', patterns=[pattern])
+            matcher.add("NAME", patterns=[pattern])
         matches = matcher(doc)
         for match_id, start, end in matches:
             span = doc[start:end]
@@ -72,7 +80,8 @@ class CandidateProfile(BaseModel):
         # Extract education-related lines
         lines = text.splitlines()
         education = []
-        pattern = r"(?i)(?:Bsc|\bB\.\w+|\bM\.\w+|\bPh\.D\.\w+|\bBachelor(?:'s)?|\bMaster(?:'s)?|\bPh\.D)\s(?:\w+\s)*\w+"
+        # pattern = r"(?i)(?:Bsc|\bB\.\w+|\bM\.\w+|\bPh\.D\.\w+|\bBachelor(?:'s)?|\bMaster(?:'s)?|\bPh\.D)\s(?:\w+\s)*\w+"
+        pattern = r"(?i)\b(?:b\.?sc|m\.?sc|ph\.?d|bachelor(?:'s)?|master(?:'s)?)\b[^,\n]{0,80}"
         matches = re.findall(pattern, text)
         for match in matches:
             education.append(match.strip())
@@ -86,7 +95,11 @@ class CandidateProfile(BaseModel):
                 skills.append(skill)
 
         # Estimate job titles (simple: look for known titles in lines)
-        job_titles = [line.strip() for line in lines if any(t in line.lower() for t in [d.lower() for d in TITLE_POOL])]
+        job_titles = [
+            line.strip()
+            for line in lines
+            if any(t in line.lower() for t in [d.lower() for d in TITLE_POOL])
+        ]
 
         # Experience block (extract paragraphs with years)
         paragraphs = [p.strip() for p in text.split("\n\n") if len(p.strip()) > 40]
