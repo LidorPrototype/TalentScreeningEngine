@@ -13,6 +13,9 @@ from constants import CODE_VERSION, PROJECT_NAME
 
 
 
+
+
+
 app_name = f"{PROJECT_NAME} API"
 app = FastAPI(title=app_name)
 
