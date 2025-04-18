@@ -84,7 +84,7 @@ See Swagger UI at: http://localhost:8000/docs
   "experiences": ["Worked as backend dev for 3 years"],
   "skills": ["Python", "Django", "CI/CD"],
   "total_years_experience": 4.5,
-  "job_titles": ["Backend Engineer"],
+  "job_titles": ["Backend Engineer"]
 }
 ```
 

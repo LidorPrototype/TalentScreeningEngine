@@ -1,0 +1,55 @@
+
+John Doe
+Email: johndoe@example.com | Phone: (123) 456-7890 | GitHub: github.com/johndoe | Location: New York, NY
+
+Objective
+---------
+Experienced backend developer with 5+ years of expertise in building scalable web applications and microservices. Proficient in Python, Node.js, and Java with a focus on RESTful API design, database management, and system architecture. Seeking a challenging role in a dynamic tech environment.
+
+Technical Skills
+----------------
+Languages: Python, Java, JavaScript (Node.js), SQL
+Frameworks: Django, Flask, Express.js, Spring Boot
+Databases: PostgreSQL, MySQL, MongoDB, Redis
+Tools & Platforms: Docker, Kubernetes, AWS, Git, Jenkins, Linux, REST, GraphQL
+Testing: PyTest, JUnit, Postman, Swagger
+Others: Agile, CI/CD, TDD, Design Patterns
+
+Professional Experience
+-----------------------
+Backend Developer | XYZ Tech | San Francisco, CA
+Jan 2021 – Present
+- Designed and implemented RESTful APIs in Django to support mobile and web applications used by 100,000+ users.
+- Migrated legacy monolith services to microservices architecture using Docker and Kubernetes, improving scalability and deployment time.
+- Improved system performance by optimizing database queries and implementing Redis caching, reducing response times by 40%.
+- Collaborated with frontend developers and DevOps teams in Agile sprints to release features bi-weekly.
+
+Software Engineer | ABC Solutions | Austin, TX
+Jun 2018 – Dec 2020
+- Built backend services in Node.js and Express for a real-time logistics platform used by major shipping companies.
+- Designed schema and managed PostgreSQL databases, ensuring data integrity and high availability.
+- Implemented authentication and authorization using JWT and OAuth2 standards.
+- Wrote unit and integration tests, achieving 90% test coverage and significantly reducing bugs in production.
+
+Education
+---------
+Bachelor of Science in Computer Science
+University of Texas, Austin, TX | Graduated: 2018
+
+Certifications
+--------------
+- AWS Certified Developer – Associate
+- MongoDB for Developers (MongoDB University)
+
+Projects
+--------
+Inventory Management System (Python, Flask, PostgreSQL)
+- Developed a web-based inventory and order tracking system for small businesses.
+- Integrated user roles, reporting, and notification systems.
+
+E-commerce Backend (Node.js, MongoDB)
+- Built and deployed an API for an online store with user registration, cart, and payment features.
+
+References
+----------
+Available upon request.
