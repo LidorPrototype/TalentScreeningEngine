@@ -21,3 +21,6 @@ TITLE_POOL = [
 
 # FRONTEND
 API_URL = "http://localhost:8000"
+SCORING_OPTIONS = ["tfidf", "sbert"]
+INPUT_MODE_OPTIONS = ["upload", "manual"]
+UPLOAD_FILE_OPTIONS = ["txt", "pdf", "docx"]

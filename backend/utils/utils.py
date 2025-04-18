@@ -1,5 +1,3 @@
-from pdfminer.high_level import extract_text
-
 from backend.parsers.schema import CandidateProfile
 
 def build_weighted_candidate_blob(candidate: CandidateProfile) -> str:
@@ -12,6 +10,3 @@ def build_weighted_candidate_blob(candidate: CandidateProfile) -> str:
     edu_blob = " ".join(candidate.education)
 
     return " ".join([skill_blob, title_blob, edu_blob])
-
-def extract_text_from_pdf(pdf_path):
-    return extract_text(pdf_path)

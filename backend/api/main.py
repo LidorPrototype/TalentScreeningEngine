@@ -2,13 +2,14 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 from typing import List
 from backend.api.evaluator import evaluate_candidates
+from backend.matching.sbert_scorer import SBERTScorer
 from backend.matching.tfidf_scorer import TFIDFScorer
 from backend.parsers.schema import CandidateProfile
 from constants import CODE_VERSION, PROJECT_NAME
 
 app_name = f"{PROJECT_NAME} API"
 app = FastAPI(title=app_name)
-
+# TODO : with OpenAPI docs
 class ParsedEvaluationRequest(BaseModel):
     job_description: str
     candidates: List[CandidateProfile]
@@ -44,7 +45,7 @@ def parse_resume(req: ParseRequest):
 @app.post("/evaluate_parsed", tags=["Parsing"])
 def evaluate_parsed(req: ParsedEvaluationRequest, method: str = "tfidf"):
     if method == "sbert":
-        pass # TODO
+        scorer = SBERTScorer()
     else:
         scorer = TFIDFScorer()
 

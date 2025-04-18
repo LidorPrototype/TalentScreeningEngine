@@ -7,7 +7,7 @@ Built with FastAPI + Streamlit, this system ingests structured candidate profile
 
 ## 🚀 Features
 
-- ✅ Match candidates to job descriptions using NLP (TF-IDF, SBERT-not ready)
+- ✅ Match candidates to job descriptions using NLP (TF-IDF, SBERT-ready)
 - ✅ Full bias audit: gender, age proxy, education prestige, location risk
 - ✅ Explanation module shows matching keywords (✓/✗)
 - ✅ RESTful API (FastAPI) with OpenAPI docs

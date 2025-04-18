@@ -1,0 +1,38 @@
+We are seeking a highly skilled and experienced **Senior Backend Engineer** to join our rapidly growing engineering team.
+
+The ideal candidate is passionate about building scalable, performant, and maintainable systems in a fast-paced environment. You will play a key role in designing and developing the backend services that power our core product.
+
+### Responsibilities:
+
+- Architect, develop, and maintain RESTful APIs using **Python** and **Django**
+- Collaborate with frontend, data, and DevOps teams to deliver full-stack features
+- Design and optimize PostgreSQL database schemas and query performance
+- Integrate third-party APIs and internal microservices
+- Ensure code quality through unit testing, integration testing, and CI/CD pipelines
+- Participate in code reviews and mentor junior developers
+- Contribute to architecture decisions and product planning sessions
+- Handle authentication, authorization, and data protection at scale
+
+### Requirements:
+
+- 5+ years of experience building production-grade backend systems
+- Proficiency in **Python** (strong experience with **Django** or **FastAPI**)
+- Deep understanding of relational databases (**PostgreSQL** preferred)
+- Familiarity with **Docker**, **Kubernetes**, and **AWS** infrastructure
+- Experience with CI/CD tools (e.g., GitHub Actions, Jenkins)
+- Strong grasp of REST, HTTP fundamentals, and distributed system design
+- Comfortable with writing documentation, specs, and well-structured tests
+- Experience in Agile teams and use of tools like Jira or Linear
+
+### Bonus Skills:
+
+- Exposure to **Kafka**, **Redis**, **ElasticSearch**, or **Celery**
+- Previous experience working in a SaaS or B2B environment
+- Background in security, privacy, or compliance is a plus
+
+---
+
+**Location**: Hybrid (Tel Aviv preferred)
+**Language**: English (primary), Hebrew (bonus)
+
+Join a company where engineers drive product and architecture. We value autonomy, ownership, and technical excellence.
