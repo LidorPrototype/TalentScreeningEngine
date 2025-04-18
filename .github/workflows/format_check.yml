@@ -21,4 +21,4 @@ jobs:
         run: pip install black
 
       - name: 🧹 Run Black
-        run: black .
+        run: black . --check
