@@ -1,10 +1,11 @@
 # 🧠 Talent Screening Engine
 
+An AI-powered, bias-aware candidate screening engine for job matching.  
+Built with FastAPI + Streamlit, this system ingests structured candidate profiles and job descriptions, evaluates match quality, flags potential bias, and provides transparent scoring explanations.
+#### Tests
 - ![Black Formating](https://github.com/LidorPrototype/TalentScreeningEngine/actions/workflows/format_check.yml/badge.svg)
 - ![Unit Tests](https://github.com/LidorPrototype/TalentScreeningEngine/actions/workflows/run-unittests.yml/badge.svg)
 
-An AI-powered, bias-aware candidate screening engine for job matching.  
-Built with FastAPI + Streamlit, this system ingests structured candidate profiles and job descriptions, evaluates match quality, flags potential bias, and provides transparent scoring explanations.
 
 ---
 
