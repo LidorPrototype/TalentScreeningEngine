@@ -17,7 +17,7 @@ def upload_candidate_input(api_url: str, upload_options: List):
     uploaded_files = st.file_uploader(
         f"Upload one or more resumes [`{"`, `".join(upload_options)}`]",
         type=upload_options,
-        accept_multiple_files=True
+        accept_multiple_files=True,
     )
     if uploaded_files:
         for file in uploaded_files:
@@ -30,13 +30,16 @@ def upload_candidate_input(api_url: str, upload_options: List):
                     continue
 
                 with st.spinner(f"Parsing {file.name}..."):
-                    res = requests.post("http://localhost:8000/parse_resume", json={"raw_text": raw_text})
+                    res = requests.post(
+                        f"{api_url}/parse_resume",
+                        json={"raw_text": raw_text},
+                    )
                     if res.status_code == 200:
                         parsed = res.json()
                         st.session_state.parsed_resumes[file_id] = {
                             "raw": raw_text,
                             "parsed": parsed,
-                            "used": False
+                            "used": False,
                         }
                         st.success(f"Parsed {file.name} successfully.")
                     else:
@@ -52,4 +55,3 @@ def upload_candidate_input(api_url: str, upload_options: List):
                 st.session_state.candidate_data.append(data["parsed"])
                 st.session_state.parsed_resumes[fname]["used"] = True
                 st.success(f"{fname} added to evaluation pool.")
-
