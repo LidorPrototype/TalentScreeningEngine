@@ -82,8 +82,9 @@ class CandidateProfile(BaseModel):
         education = []
         education_pattern = r"(?i)\b(?:b\.?sc|m\.?sc|ph\.?d|bachelor(?:'s)?|master(?:'s)?)\b[^,\n]{0,80}"
         matches = re.findall(education_pattern, text)
-        for education_match in matches:
-            education.append(education_match.strip())
+        for education_match_raw in matches:
+            education_match: str = str(education_match_raw).strip()
+            education.append(education_match)
 
         # Extract skills (match against known list)
         skills = []
