@@ -82,15 +82,15 @@ class CandidateProfile(BaseModel):
         education = []
         education_pattern = r"(?i)\b(?:b\.?sc|m\.?sc|ph\.?d|bachelor(?:'s)?|master(?:'s)?)\b[^,\n]{0,80}"
         matches = re.findall(education_pattern, text)
-        for match in matches:
-            education.append(match.strip())
+        for education_match in matches:
+            education.append(education_match.strip())
 
         # Extract skills (match against known list)
         skills = []
         for skill in SKILL_POOL:
-            pattern = r"\b{}\b".format(re.escape(skill))
-            match = re.search(pattern, text, re.IGNORECASE)
-            if match:
+            skill_pattern = r"\b{}\b".format(re.escape(skill))
+            skill_match = re.search(skill_pattern, text, re.IGNORECASE)
+            if skill_match:
                 skills.append(skill)
 
         # Estimate job titles (simple: look for known titles in lines)

@@ -1,6 +1,6 @@
 from backend.parsers.schema import CandidateProfile
 import re
-from typing import List
+from typing import List, Dict
 from sklearn.feature_extraction.text import ENGLISH_STOP_WORDS
 import nltk
 from nltk.corpus import stopwords
@@ -46,7 +46,7 @@ def extract_keywords(text: str, top_n: int = 10) -> List[str]:
     filtered = [
         normalize(t) for t in tokens if t not in custom_stopwords and len(t) >= 2
     ]
-    freq = {}
+    freq: Dict = {}
     for token in filtered:
         freq[token] = freq.get(token, 0) + 1
     ranked = sorted(freq.items(), key=lambda x: x[1], reverse=True)

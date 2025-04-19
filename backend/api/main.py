@@ -52,11 +52,11 @@ def parse_resume(req: ParseRequest):
 )
 def evaluate_parsed(req: ParsedEvaluationRequest, method: str = "tfidf"):
     if method == "sbert":
-        scorer = SBERTScorer()
+        sbert_scorer = SBERTScorer()
+        return evaluate_candidates(req.candidates, req.job_description, sbert_scorer)
     else:
-        scorer = TFIDFScorer()
-
-    return evaluate_candidates(req.candidates, req.job_description, scorer)
+        tfidf_scorer = TFIDFScorer()
+        return evaluate_candidates(req.candidates, req.job_description, tfidf_scorer)
 
 
 @app.post("/evaluate_raw", response_model=List[EvaluationResult], tags=["Evaluation"])
