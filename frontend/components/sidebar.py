@@ -16,7 +16,11 @@ def construct_sidebar(scoring_options, input_options):
     input_mode = st.radio(
         "Candidate Input Mode",
         options=input_options,
-        format_func=lambda x: "Manual Entry" if x == "manual" else "Resume Upload",
+        format_func=lambda x: {
+            "manual": "Manual Entry",
+            "upload": "Resume Upload",
+            "evaluate_raw": "Bulk - Full Process"
+        }[x],
         index=0,
     )
 

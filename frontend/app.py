@@ -5,6 +5,7 @@ import sys, os
 from components.manual_input import manual_candidate_input
 from components.upload_input import upload_candidate_input
 from components.sidebar import construct_sidebar
+from components.bulk_input import upload_bulk_candidate_input
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 from constants import (
@@ -34,13 +35,13 @@ job_description = st.text_area("Paste Job Description", height=200)
 
 if input_mode == "manual":
     manual_candidate_input()
-
 elif input_mode == "upload":
     upload_candidate_input(api_url=API_URL, upload_options=UPLOAD_FILE_OPTIONS)
+elif input_mode == "evaluate_raw":
+    upload_bulk_candidate_input(api_url=API_URL, upload_options=UPLOAD_FILE_OPTIONS, job_description=job_description, scoring_method=scoring_method)
 
 st.markdown("---")
 if st.session_state.get("candidate_data"):
-    # if st.button("📋 Show Candidate Summary"):
     with st.expander("🧾 Candidate Summary Table", expanded=True):
         summary = []
         for idx, cand in enumerate(st.session_state["candidate_data"], 1):
@@ -57,32 +58,32 @@ if st.session_state.get("candidate_data"):
         st.dataframe(df, use_container_width=True)
 
 disabled = len(st.session_state.candidate_data) == 0
-if st.button("🔍 Evaluate Candidates", disabled=disabled):
-    try:
-        import requests
+if input_mode != "evaluate_raw":
+    if st.button("🔍 Evaluate Candidates", disabled=disabled):
+        try:
+            import requests
+            with st.spinner("Evaluating..."):
+                url = f"{API_URL}/evaluate_parsed?method={scoring_method}"
+                resp = requests.post(
+                    url,
+                    json={
+                        "job_description": job_description,
+                        "candidates": st.session_state.candidate_data,
+                    },
+                )
+                resp.raise_for_status()
+                results = resp.json()
+                st.session_state.eval_results = results
+            st.success(f"Evaluation Complete - {scoring_method}")
+        except Exception as e:
+            st.error(f"❌ Error: {str(e)}")
 
-        with st.spinner("Evaluating..."):
-            url = f"{API_URL}/evaluate_parsed?method={scoring_method}"
-            resp = requests.post(
-                url,
-                json={
-                    "job_description": job_description,
-                    "candidates": st.session_state.candidate_data,
-                },
-            )
-            resp.raise_for_status()
-            results = resp.json()
-
-        st.success(f"Evaluation Complete - {scoring_method}")
-
-        for i, res in enumerate(results):
-            with st.expander(f"Candidate #{i+1} — Score: {res['score']}"):
-                st.markdown("**Explanation**")
-                st.code(res["explanation"])
-                st.markdown("**Bias Report**")
-                st.json(res["bias_report"])
-                st.markdown("**Cleaned Candidate**")
-                st.json(res["cleaned_candidate"])
-
-    except Exception as e:
-        st.error(f"❌ Error: {str(e)}")
+if st.session_state.get("eval_results"):
+    for i, res in enumerate(st.session_state.eval_results):
+        with st.expander(f"Candidate #{i + 1} — Score: {res['score']}"):
+             st.markdown("**Explanation**")
+             st.code(res["explanation"])
+             st.markdown("**Bias Report**")
+             st.json(res["bias_report"])
+             st.markdown("**Cleaned Candidate**")
+             st.json(res["cleaned_candidate"])
