@@ -1,4 +1,5 @@
 import streamlit as st
+import pandas as pd
 import sys, os
 
 from components.manual_input import manual_candidate_input
@@ -38,6 +39,21 @@ elif input_mode == "upload":
     upload_candidate_input(api_url=API_URL, upload_options=UPLOAD_FILE_OPTIONS)
 
 st.markdown("---")
+if st.session_state.get("candidate_data"):
+    # if st.button("📋 Show Candidate Summary"):
+        with st.expander("🧾 Candidate Summary Table", expanded=True):
+            summary = []
+            for idx, cand in enumerate(st.session_state["candidate_data"], 1):
+                summary.append({
+                    # "Index": idx,
+                    "Name": cand.get("name", "—"),
+                    "Email": cand.get("email", "—"),
+                    "Titles": ", ".join(cand.get("job_titles", [])) or "—",
+                    "Skills": ", ".join(cand.get("skills", [])[:6]) or "—"
+                })
+            df = pd.DataFrame(summary)
+            st.dataframe(df, use_container_width=True)
+
 disabled = len(st.session_state.candidate_data) == 0
 if st.button("🔍 Evaluate Candidates", disabled=disabled):
     try:
