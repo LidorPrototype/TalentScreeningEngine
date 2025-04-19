@@ -14,3 +14,12 @@ def extract_text_from_file(uploaded_file):
         return "\n".join([para.text for para in doc.paragraphs])
     else:
         return None
+
+
+def format_score_label(score):
+    if score >= 0.75:
+        return f"🟢 Candidate #{i + 1} — Score: {score:.3f}"
+    elif score < 0.4:
+        return f"🔴 Candidate #{i + 1} — Score: {score:.3f}"
+    else:
+        return f"🟡 Candidate #{i + 1} — Score: {score:.3f}"
