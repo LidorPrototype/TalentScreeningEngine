@@ -26,25 +26,6 @@ jobs:
       - name: Run Black
         run: black . --check
 
-  flake8:
-    name: 🔍 Flake8 Lint Check
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: "3.12"
-
-      - name: Install Flake8
-        run: pip install flake8
-
-      - name: Run Flake8
-        run: flake8 .
-
   mypy:
     name: 🧠 Mypy Type Check
     runs-on: ubuntu-latest
