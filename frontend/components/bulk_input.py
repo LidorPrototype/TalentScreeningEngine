@@ -4,7 +4,7 @@ import requests
 import streamlit as st
 
 # For Streamlit run only, because of the way the project is structured
-from utils import extract_text_from_file
+from front_utils import extract_text_from_file
 
 
 def upload_bulk_candidate_input(

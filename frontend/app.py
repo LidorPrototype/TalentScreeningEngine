@@ -6,6 +6,7 @@ from components.manual_input import manual_candidate_input
 from components.upload_input import upload_candidate_input
 from components.sidebar import construct_sidebar
 from components.bulk_input import upload_bulk_candidate_input
+from front_utils import format_score_label
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 from constants import (
@@ -21,6 +22,8 @@ st.title(f"🎯 {PROJECT_NAME}")
 
 if "candidate_data" not in st.session_state:
     st.session_state.candidate_data = []
+if "job_description" not in st.session_state:
+    st.session_state["job_description"] = ""
 
 # SIDEBAR
 with st.sidebar:
@@ -30,7 +33,7 @@ with st.sidebar:
 
 # MAIN PAGE
 st.markdown("### Step 1: Job Description")
-job_description = st.text_area("Paste Job Description", height=200)
+st.session_state["job_description"] = st.text_area("Paste Job Description", height=200)
 
 
 if input_mode == "manual":
@@ -41,7 +44,7 @@ elif input_mode == "evaluate_raw":
     upload_bulk_candidate_input(
         api_url=API_URL,
         upload_options=UPLOAD_FILE_OPTIONS,
-        job_description=job_description,
+        job_description=st.session_state["job_description"],
         scoring_method=scoring_method,
     )
 
@@ -73,7 +76,7 @@ if input_mode != "evaluate_raw":
                 resp = requests.post(
                     url,
                     json={
-                        "job_description": job_description,
+                        "job_description": st.session_state["job_description"],
                         "candidates": st.session_state.candidate_data,
                     },
                 )
@@ -86,7 +89,8 @@ if input_mode != "evaluate_raw":
 
 if st.session_state.get("eval_results"):
     for i, res in enumerate(st.session_state.eval_results):
-        with st.expander(f"Candidate #{i + 1} — Score: {res['score']}"):
+        label = format_score_label(res["score"], i)
+        with st.expander(label):
             st.markdown("**Explanation**")
             st.code(res["explanation"])
             st.markdown("**Bias Report**")

@@ -2,7 +2,7 @@ from sentence_transformers import SentenceTransformer, util
 from backend.parsers.schema import CandidateProfile
 from backend.matching.scoring_strategy import ScoringStrategy
 from constants import SBERT_MODEL_NAME
-from backend.utils.utils import build_weighted_candidate_blob
+from backend.utils.back_utils import build_weighted_candidate_blob
 
 model = SentenceTransformer(SBERT_MODEL_NAME)
 

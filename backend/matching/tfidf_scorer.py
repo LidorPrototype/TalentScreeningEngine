@@ -2,7 +2,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
 from backend.matching.scoring_strategy import ScoringStrategy
-from backend.utils.utils import build_weighted_candidate_blob
+from backend.utils.back_utils import build_weighted_candidate_blob
 from backend.parsers.schema import CandidateProfile
 
 

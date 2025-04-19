@@ -7,7 +7,7 @@ from spacy.matcher import Matcher
 from spacy.util import is_package
 from pydantic import BaseModel, Field
 
-from constants import SKILL_POOL, TITLE_POOL, DEGREES
+from constants import SKILL_POOL, TITLE_POOL
 
 
 def ensure_spacy_model(model_name: str = "en_core_web_sm"):
@@ -80,9 +80,8 @@ class CandidateProfile(BaseModel):
         # Extract education-related lines
         lines = text.splitlines()
         education = []
-        # pattern = r"(?i)(?:Bsc|\bB\.\w+|\bM\.\w+|\bPh\.D\.\w+|\bBachelor(?:'s)?|\bMaster(?:'s)?|\bPh\.D)\s(?:\w+\s)*\w+"
-        pattern = r"(?i)\b(?:b\.?sc|m\.?sc|ph\.?d|bachelor(?:'s)?|master(?:'s)?)\b[^,\n]{0,80}"
-        matches = re.findall(pattern, text)
+        education_pattern = r"(?i)\b(?:b\.?sc|m\.?sc|ph\.?d|bachelor(?:'s)?|master(?:'s)?)\b[^,\n]{0,80}"
+        matches = re.findall(education_pattern, text)
         for match in matches:
             education.append(match.strip())
 

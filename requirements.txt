@@ -7,6 +7,7 @@ fastapi~=0.115.12
 uvicorn~=0.34.0
 streamlit~=1.44.1
 requests~=2.32.3
+types-requests~=2.32.0.20250328
 sentence-transformers~=4.0.2
 spacy~=3.8.5
 pydantic~=2.11.3
