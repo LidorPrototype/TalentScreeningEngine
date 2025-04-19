@@ -20,6 +20,6 @@ class ParseRequest(BaseModel):
 
 class EvaluationResult(BaseModel):
     score: float
-    explanation: Dict[str, Any]
+    explanation: str
     bias_report: Dict[str, Any]
     cleaned_candidate: CandidateProfile
