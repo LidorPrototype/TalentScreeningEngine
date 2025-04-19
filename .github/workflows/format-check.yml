@@ -1,24 +1,46 @@
-name: Code Formatting (Black)
+name: Lint and Format Checks
 
 on:
   push:
-    branches: 
-      - '**'   # Triggers on any branch
+    branches: ["**"]
+  pull_request:
+    branches: ["**"]
 
 jobs:
-  black-check:
+  black:
+    name: 🧹 Black Format Check
     runs-on: ubuntu-latest
+
     steps:
-      - name: 📥 Checkout code
+      - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: 🐍 Set up Python
+      - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.12'
+          python-version: "3.12"
 
-      - name: 📦 Install Black
+      - name: Install Black
         run: pip install black
 
-      - name: 🧹 Run Black
+      - name: Run Black
         run: black . --check
+
+  mypy:
+    name: 🧠 Mypy Type Check
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.12"
+
+      - name: Install Mypy
+        run: pip install mypy
+
+      - name: Run Mypy
+        run: mypy .
