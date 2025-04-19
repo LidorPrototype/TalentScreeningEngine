@@ -19,7 +19,7 @@ def construct_sidebar(scoring_options, input_options):
         format_func=lambda x: {
             "manual": "Manual Entry",
             "upload": "Resume Upload",
-            "evaluate_raw": "Bulk - Full Process"
+            "evaluate_raw": "Bulk - Full Process",
         }[x],
         index=0,
     )

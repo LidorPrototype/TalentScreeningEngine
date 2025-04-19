@@ -38,7 +38,12 @@ if input_mode == "manual":
 elif input_mode == "upload":
     upload_candidate_input(api_url=API_URL, upload_options=UPLOAD_FILE_OPTIONS)
 elif input_mode == "evaluate_raw":
-    upload_bulk_candidate_input(api_url=API_URL, upload_options=UPLOAD_FILE_OPTIONS, job_description=job_description, scoring_method=scoring_method)
+    upload_bulk_candidate_input(
+        api_url=API_URL,
+        upload_options=UPLOAD_FILE_OPTIONS,
+        job_description=job_description,
+        scoring_method=scoring_method,
+    )
 
 st.markdown("---")
 if st.session_state.get("candidate_data"):
@@ -62,6 +67,7 @@ if input_mode != "evaluate_raw":
     if st.button("🔍 Evaluate Candidates", disabled=disabled):
         try:
             import requests
+
             with st.spinner("Evaluating..."):
                 url = f"{API_URL}/evaluate_parsed?method={scoring_method}"
                 resp = requests.post(
@@ -81,9 +87,9 @@ if input_mode != "evaluate_raw":
 if st.session_state.get("eval_results"):
     for i, res in enumerate(st.session_state.eval_results):
         with st.expander(f"Candidate #{i + 1} — Score: {res['score']}"):
-             st.markdown("**Explanation**")
-             st.code(res["explanation"])
-             st.markdown("**Bias Report**")
-             st.json(res["bias_report"])
-             st.markdown("**Cleaned Candidate**")
-             st.json(res["cleaned_candidate"])
+            st.markdown("**Explanation**")
+            st.code(res["explanation"])
+            st.markdown("**Bias Report**")
+            st.json(res["bias_report"])
+            st.markdown("**Cleaned Candidate**")
+            st.json(res["cleaned_candidate"])
