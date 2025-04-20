@@ -88,6 +88,15 @@ if input_mode != "evaluate_raw":
             st.error(f"❌ Error: {str(e)}")
 
 if st.session_state.get("eval_results"):
+    with st.container():
+        st.markdown("### 🔍 Match Score Indicators")
+        st.markdown(
+            """
+            - 🟢 **Green** = Strong match (Score ≥ 0.75)  
+            - 🟡 **Yellow** = Moderate match (0.4 ≤ Score < 0.75)  
+            - 🔴 **Red** = Poor match (Score < 0.4)
+            """
+        )
     for i, res in enumerate(st.session_state.eval_results):
         label = format_score_label(res["score"], i)
         with st.expander(label):
